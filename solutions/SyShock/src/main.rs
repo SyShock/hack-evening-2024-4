@@ -41,8 +41,11 @@ mod solution {
         Ok(weather_entries)
     }
 
-    pub fn print_hash(hash: WeatherHashMap) {
+    pub fn print_hash(mut hash: WeatherHashMap) {
         print!("{{\n");
+        let vec: Vec<String> = hash.keys().cloned().collect();
+        let last = vec[vec.len() - 1].clone();
+        let (last_k, last_v) = hash.remove_entry(last.as_str()).unwrap();
         hash.into_iter().for_each(|(k, v)| {
             let vec_to_string = {
                 let vec: Vec<String> = v.iter().map(ToString::to_string).collect();
@@ -50,6 +53,11 @@ mod solution {
             };
             println!("\t{k}={vec_to_string},");
         });
+        let vec_to_string = {
+            let vec: Vec<String> = last_v.iter().map(ToString::to_string).collect();
+            vec.join("\\")
+        };
+        println!("\t{last_k}={vec_to_string}");
         print!("}}\n");
     }
 }
