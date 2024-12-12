@@ -35,7 +35,7 @@ mod solution {
                 .or_insert_with(|| Vec::new());
             result.append(&mut values);
 
-            // could optimize considering the vec is already sorted...
+            // this definately could use optimization
             result.sort_by(|a, b| a.partial_cmp(b).unwrap());
         }
         Ok(weather_entries)
